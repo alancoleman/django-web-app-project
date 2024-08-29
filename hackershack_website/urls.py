@@ -14,15 +14,34 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from django.contrib.auth import views as auth_views
 
-# Import views from local directory
 from . import views
 
-# Use views in URL patterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="index"),
     path('about', views.about, name="about"),
-    path('contact', views.contact, name="contact")
+    path('contact', views.contact, name="contact"),
+    path('accounts/profile', views.ProfileView.as_view(), name="profile"),
+
+    # Django Auth
+    path('accounts/login', auth_views.LoginView.as_view(template_name="accounts/login.html"), name='login'),
+    # No template name is required here at the user is will be directed back to the URL set in settings.py
+    path('accounts/logout', auth_views.LogoutView.as_view(), name="logout")
 ]
+
+# The following will create eight pages automatically for use with Django
+# path('accounts/', include('django.contrib.auth.urls'))
+
+
+# accounts/login/ [name='login']
+# accounts/logout/ [name='logout']
+# accounts/password_change/ [name='password_change']
+# accounts/password_change/done/ [name='password_change_done']
+# accounts/password_reset/ [name='password_reset']
+# accounts/password_reset/done/ [name='password_reset_done']
+# accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
+# accounts/reset/done/ [name='password_reset_complete']
+
