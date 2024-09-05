@@ -1,0 +1,48 @@
+# version of Docker Compose
+version: "3.7"
+
+x-service-volumes: &service-volumes
+  - ./:/app/:rw,cached
+
+#x-database-variables: &database-variables
+#  POSTGRES_DB: postgres
+#  POSTGRES_USER: postgres
+#  POSTGRES_PASSWORD: postgres
+
+#x-app-variables: &app-variables
+#  <<: *database-variables
+#  POSTGRES_HOST: postgres
+
+services:
+  website:
+    # Docker image name with tag
+    image: hackershack-website-tutorial:latest
+    # Command for service to run inside the image. Note the port mapping
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes: *service-volumes
+    #environment: *app-variables
+    # Run the db migration first
+    depends_on:
+      - db_migrate
+    # Map the port in the container to the port in the local machine
+    ports:
+      - "8000:8000"
+
+  db_migrate:
+    image: hackershack-website-tutorial:latest
+    command: python manage.py migrate
+    volumes: *service-volumes
+    #environment: *app-variables
+    #depends_on:
+    #  - postgres
+
+  #postgres:
+    #image: postgres
+    #environment: *database-variables
+    #volumes:
+    #  - db-data:/var/lib/postgresql/data
+    #ports:
+    #  - "5432:5432"
+  
+#volumes:
+  #db-data:
