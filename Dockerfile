@@ -13,18 +13,16 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory. Whenever files are referenced further down, they will be in this directory
 WORKDIR /app/
 
-ARG CACHEBUST=1
-
-#RUN apt-get update && \
-#    apt-get install -y \
-#    bash \
-#    build-essential \
-#    gcc \
-#    libffi-dev \
-#    musl-dev \
-#    openssl \
-#    postgresql \
-#    libpq-dev
+RUN apt-get update && \
+    apt-get install -y \
+    bash \
+    build-essential \
+    gcc \
+    libffi-dev \
+    musl-dev \
+    openssl \
+    postgresql \
+    libpq-dev
 
 # Copy files from local file system to the Docker image
 COPY requirements/prod.txt ./requirements/prod.txt
