@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "hackershack_website.apps.accounts",
+    "hackershack_website.apps.contact",
 ]
 
 MIDDLEWARE = [
@@ -74,19 +75,19 @@ WSGI_APPLICATION = "hackershack_website.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-POSTGRES_HOST = os.environ.get('POSTGRES_HOST', default="")
-POSTGRES_DB = os.environ.get('POSTGRES_DB', default="")
-POSTGRES_USER = os.environ.get('POSTGRES_USER', default="")
-POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD', default="")
+POSTGRES_HOST = os.environ.get("POSTGRES_HOST", default="")
+POSTGRES_DB = os.environ.get("POSTGRES_DB", default="")
+POSTGRES_USER = os.environ.get("POSTGRES_USER", default="")
+POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD", default="")
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': POSTGRES_DB,
-        'USER': POSTGRES_USER,
-        'PASSWORD': POSTGRES_PASSWORD,
-        'HOST': POSTGRES_HOST,
-        'PORT': 5432,
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": POSTGRES_DB,
+        "USER": POSTGRES_USER,
+        "PASSWORD": POSTGRES_PASSWORD,
+        "HOST": POSTGRES_HOST,
+        "PORT": 5432,
     }
 }
 
@@ -122,11 +123,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Django Auth Settings
 LOGIN_URL = "account:login"
 LOGIN_REDIRECT_URL = "public:index"
 LOGOUT_REDIRECT_URL = "public:index"
+
+# Writes email to console
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# Uses an SMTP Server
+# If using an SMTP Server like SendGrid, additional settings will need to be set here to reference the service being used.
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+DEFAULT_FROM_EMAIL = "hackershackofficial@gmail.com"

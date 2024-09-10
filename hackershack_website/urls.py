@@ -20,7 +20,7 @@ from . import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # Note the use of the include function for the module path here...
     path("", include("hackershack_website.apps.public.urls")),
     path("accounts/", include("hackershack_website.apps.accounts.urls")),
+    path("contact/", include("hackershack_website.apps.contact.urls")),
 ]

@@ -23,6 +23,9 @@
   <!-- Internal CSS   -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet" />
 
+  {% block head %}
+  {% endblock %}
+
 </head>
 <body>
   {% include 'navbar.html' %}
@@ -40,4 +43,5 @@
   <script src="{% static 'theme/js/scripts.js' %}"></script>
 
 </body>
+{% include 'footer.html' %}
 </html>
