@@ -26,7 +26,7 @@ SECRET_KEY = "xmi!h8()5zon*j85^^a$$0m%64-0hwnse17!rh2s3+zz2d65r5"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS: List[str] = []
+ALLOWED_HOSTS: List[str] = ["*"]
 
 
 # Application definition

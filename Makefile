@@ -1,3 +1,8 @@
+# Tags can be overidden when using makefile
+tag=latest
+organization=acolemandocker
+image=hackershack-website-tutorial
+
 # Alias
 build:
 # Docker command
@@ -18,6 +23,11 @@ build-dev:
 build-prod:
 	$(MAKE) build options="--target production"
 
+# Docker push a tag commands
+push:
+	docker tag $(image):latest $(organization)/$(image):$(tag)
+	docker push $(organization)/$(image):$(tag)
+
 # Docker Compose
 # Runs CLI commands for Docker Compose
 # up starts up services
@@ -32,3 +42,17 @@ compose-stop:
 # Allows the running of any arbitrary services
 compose-manage-py:
 	docker compose run --rm $(options) website python manage.py $(cmd)
+
+# This command will be referenced in the Helm deployment yaml file
+# Pointing at port 80 because that's what we're pointing at in the deployment
+start-server:
+	python manage.py runserver 0.0.0.0:80
+
+migrate:
+	python manage.py migrate
+
+helm-deploy:
+	helm upgrade --install django-tutorial ./helm/django-website
+
+helm-deploy-dry:
+	helm upgrade --install --dry-run --debug django-tutorial ./helm/django-website

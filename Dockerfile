@@ -32,9 +32,11 @@ RUN pip install -r ./requirements/prod.txt
 # It is possible to copy everything into the Docker image using COPY . .
 # However since this is production we don't want to copy everything, only what we need
 # Copy more files from local file system to the Docker image
+# Files towards to top of the list less likely to change
 COPY manage.py ./manage.py
 COPY setup.cfg ./setup.cfg
-# Copy the main app directory
+COPY Makefile ./Makefile
+COPY static ./static
 COPY hackershack_website ./hackershack_website
 
 # Expose the port that this Docker image will be running
